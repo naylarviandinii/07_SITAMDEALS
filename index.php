@@ -126,10 +126,6 @@ $data = $conn->query("SELECT * FROM products LIMIT 3");
       <p class="text-cream/78 text-base md:text-lg leading-relaxed max-w-lg mb-8 md:mb-10 font-light">
         Temukan ribuan produk berkualitas dengan harga yang transparan dan terjangkau.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4">
-        <a href="#produk" class="bg-gold text-forest text-center font-bold px-8 py-3.5 rounded-full shadow-lg hover:bg-gold-light transition-all">Lihat Produk</a>
-        <a href="profil.html" class="border border-cream/40 text-cream text-center font-semibold px-8 py-3.5 rounded-full hover:border-mint transition-all">Tentang Kami</a>
-      </div>
     </div>
   </section>
 
