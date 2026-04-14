@@ -123,7 +123,7 @@ $data = $conn->query("SELECT * FROM products LIMIT 3");
         Belanja Lebih <em class="not-italic text-gold">Mudah,</em><br>
         Hidup Lebih <em class="not-italic text-gold">Hemat</em>
       </h1>
-      <p class="text-cream/78 text-base md:text-lg leading-relaxed max-w-lg mb-8 md:mb-10 font-light">
+      <p class="text-white text-base md:text-lg leading-relaxed max-w-lg mb-8 md:mb-10 font-light">
         Temukan ribuan produk berkualitas dengan harga yang transparan dan terjangkau.
       </p>
     </div>
