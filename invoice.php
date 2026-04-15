@@ -23,6 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     // 2. Masukkan Item
     $conn->query("INSERT INTO order_items (order_id, product_id, grade, price, qty) 
                   VALUES ('$order_id', '$product_id', '$grade', '$unit_price', '$qty')");
+
+    // 3. Kurangi Stok sesuai Grade
+    $stock_col = "stock_" . $grade; // stock_A / stock_B / stock_C
+    $conn->query("UPDATE products 
+                  SET $stock_col = $stock_col - $qty 
+                  WHERE product_id = $product_id 
+                  AND $stock_col >= $qty");
+
+    if ($conn->affected_rows == 0) {
+        die("Gagal: Stok tidak mencukupi atau produk tidak ditemukan.");
+    }
     
     // Redirect ke diri sendiri (GET) biar tidak duplikat datanya kalau di-refresh
     header("Location: invoice.php?id=" . $order_id);
