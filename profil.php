@@ -98,9 +98,17 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
                 extend: {
                     fontFamily: { playfair: ['Playfair Display', 'serif'], dm: ['DM Sans', 'sans-serif'] },
                     colors: {
-                        forest: '#1e3a2f', moss: '#2e5c42', sage: '#4a8c64',
-                        leaf: '#72b88a', mint: '#b8d9c5', cream: '#f7f4ee',
-                        gold: '#c9a84c', 'gold-light': '#e8c96a'
+                        // Tema cream yang lebih soft dengan kontras tinggi untuk text
+                        cream: '#fefbf3',           // Cream sangat terang (background utama)
+                        'cream-dark': '#f5f0e6',    // Cream sedikit lebih gelap
+                        'cream-light': '#fffdf9',   // Cream paling terang
+                        taupe: '#8b7b5f',           // Taupe gelap untuk text utama (kontras tinggi)
+                        'taupe-dark': '#6b5a42',    // Taupe lebih gelap untuk heading
+                        'taupe-light': '#a89c7e',   // Taupe terang untuk accent
+                        beige: '#d9c9a2',           // Beige untuk border/hover
+                        'beige-dark': '#b8a884',    // Beige lebih gelap
+                        gold: '#d4af37',            // Gold untuk highlight
+                        'gold-light': '#e8c968'     // Gold terang
                     },
                     animation: {
                         'fade-up': {
@@ -115,9 +123,9 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
     
     <style>
         .input-field {
-            @apply w-full px-4 py-4 border border-gray-200 rounded-xl bg-gray-50 
-                   hover:border-gray-300 focus:border-sage focus:ring-2 focus:ring-sage/20 
-                   focus:outline-none transition-all text-sm placeholder-gray-400;
+            @apply w-full px-4 py-4 border border-beige/50 rounded-xl bg-cream-light 
+                   hover:border-beige focus:border-taupe-light focus:ring-2 focus:ring-taupe-light/20 
+                   focus:outline-none transition-all text-sm placeholder-taupe/60 text-taupe;
         }
         @media (max-width: 1024px) { nav ul { display: none; } }
     </style>
@@ -125,18 +133,18 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
 
 <body class="bg-cream min-h-screen">
     <!-- NAVBAR -->
-    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 lg:px-8 h-14 lg:h-16 bg-forest/95 backdrop-blur-md border-b border-sage/20">
-        <a href="index.php" class="font-playfair text-lg font-black text-white">SiTam<span class="text-gold">Deals</span></a>
+    <nav class="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-6 lg:px-8 h-14 lg:h-16 bg-taupe-dark/95 backdrop-blur-md border-b border-beige/30">
+        <a href="index.php" class="font-playfair text-lg font-black text-cream">SiTam<span class="text-gold">Deals</span></a>
         <div class="hidden lg:flex items-center gap-6">
             <a href="profil.php" class="text-gold font-bold text-sm uppercase tracking-wide border-b-2 border-gold pb-1">Profil</a>
         </div>
-        <button id="mobileMenuBtn" class="lg:hidden text-white text-xl">
+        <button id="mobileMenuBtn" class="lg:hidden text-cream text-xl">
             <i class="fas fa-bars"></i>
         </button>
     </nav>
 
     <!-- MOBILE MENU -->
-    <div id="mobileMenu" class="hidden lg:hidden fixed top-14 left-0 right-0 bg-forest p-4 z-40 border-b border-sage/20">
+    <div id="mobileMenu" class="hidden lg:hidden fixed top-14 left-0 right-0 bg-taupe-dark p-4 z-40 border-b border-beige/30">
         <a href="profil.php" class="block py-3 text-gold font-bold text-lg">Profil</a>
     </div>
 
@@ -147,74 +155,74 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <!-- ALERT MESSAGE -->
             <?php if ($message): ?>
                 <div class="p-4 rounded-2xl text-center font-medium text-sm 
-                    <?= $messageType == 'error' ? 'bg-red-50 border-2 border-red-200 text-red-700' : 'bg-emerald-50 border-2 border-emerald-200 text-emerald-700' ?>">
+                    <?= $messageType == 'error' ? 'bg-red-50/80 border-2 border-red-200/50 text-red-700' : 'bg-emerald-50/80 border-2 border-emerald-200/50 text-emerald-700' ?>">
                     <i class="fas <?= $messageType == 'error' ? 'fa-exclamation-circle' : 'fa-check-circle' ?> mr-2"></i>
                     <?= htmlspecialchars($message) ?>
                 </div>
             <?php endif; ?>
 
             <!-- AVATAR CARD -->
-            <div class="bg-white rounded-3xl shadow-xl p-6 sm:p-8 text-center border border-gray-100">
+            <div class="bg-cream-light rounded-3xl shadow-xl p-6 sm:p-8 text-center border border-beige/50">
                 <div class="relative mx-auto w-20 h-20 sm:w-24 sm:h-24 mb-6">
-                    <div class="w-full h-full bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black text-forest shadow-lg border-4 border-white">
+                    <div class="w-full h-full bg-gradient-to-br from-gold to-gold-light rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black text-taupe-dark shadow-lg border-4 border-cream-light">
                         <?= strtoupper(substr($user['name'], 0, 2)) ?>
                     </div>
-                    <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-emerald-500 border-4 border-white rounded-full flex items-center justify-center text-xs font-bold text-white">✓</div>
+                    <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-gold border-4 border-cream-light rounded-full flex items-center justify-center text-xs font-bold text-taupe-dark shadow-md">✓</div>
                 </div>
-                <h1 class="font-playfair text-xl sm:text-2xl font-black text-forest mb-1"><?= htmlspecialchars($user['name']) ?></h1>
-                <p class="text-sage uppercase tracking-wide font-medium text-xs"><?= ucfirst($user['role']) ?></p>
+                <h1 class="font-playfair text-xl sm:text-2xl font-black text-taupe-dark mb-1"><?= htmlspecialchars($user['name']) ?></h1>
+                <p class="text-taupe-light uppercase tracking-wide font-medium text-xs"><?= ucfirst($user['role']) ?></p>
             </div>
 
             <!-- PROFILE FORM -->
-            <form method="POST" class="bg-white rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 space-y-6">
-                <h2 class="font-playfair text-xl font-black text-forest text-center mb-1">Edit Profile</h2>
-                <p class="text-center text-sage/80 text-sm mb-8">Ubah nama dan email Anda</p>
+            <form method="POST" class="bg-cream-light rounded-3xl shadow-xl p-6 sm:p-8 border border-beige/50 space-y-6">
+                <h2 class="font-playfair text-xl font-black text-taupe-dark text-center mb-1">Edit Profile</h2>
+                <p class="text-center text-taupe/70 text-sm mb-8">Ubah nama dan email Anda</p>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Nama</label>
+                        <label class="block text-xs font-semibold text-taupe uppercase tracking-wide mb-2">Nama</label>
                         <div class="relative">
-                            <i class="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <i class="fas fa-user absolute left-3.5 top-1/2 -translate-y-1/2 text-taupe/60"></i>
                             <input type="text" name="name" value="<?= htmlspecialchars($user['name']) ?>" required maxlength="100" 
                                    class="input-field pl-11">
                         </div>
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Email</label>
+                        <label class="block text-xs font-semibold text-taupe uppercase tracking-wide mb-2">Email</label>
                         <div class="relative">
-                            <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                            <i class="fas fa-envelope absolute left-3.5 top-1/2 -translate-y-1/2 text-taupe/60"></i>
                             <input type="email" name="email" value="<?= htmlspecialchars($user['email']) ?>" required 
                                    class="input-field pl-11">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-forest to-moss text-white py-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all">
+                <button type="submit" class="w-full bg-gradient-to-r from-taupe to-taupe-dark text-cream py-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all border border-taupe/20 hover:border-taupe/40">
                     <i class="fas fa-save mr-2"></i>Simpan Perubahan
                 </button>
             </form>
 
             <!-- PASSWORD FORM -->
-            <form method="POST" class="bg-white rounded-3xl shadow-xl p-6 sm:p-8 border border-gray-100 space-y-6">
-                <h2 class="font-playfair text-xl font-black text-forest text-center mb-1">Ubah Password</h2>
-                <p class="text-center text-sage/80 text-sm mb-8">Masukkan password lama untuk verifikasi</p>
+            <form method="POST" class="bg-cream-light rounded-3xl shadow-xl p-6 sm:p-8 border border-beige/50 space-y-6">
+                <h2 class="font-playfair text-xl font-black text-taupe-dark text-center mb-1">Ubah Password</h2>
+                <p class="text-center text-taupe/70 text-sm mb-8">Masukkan password lama untuk verifikasi</p>
                 
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Password Saat Ini</label>
+                        <label class="block text-xs font-semibold text-taupe uppercase tracking-wide mb-2">Password Saat Ini</label>
                         <input type="password" name="current_password" required class="input-field" placeholder="Password lama">
                     </div>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Password Baru</label>
+                            <label class="block text-xs font-semibold text-taupe uppercase tracking-wide mb-2">Password Baru</label>
                             <input type="password" name="new_password" required class="input-field" placeholder="Min 6 karakter">
                         </div>
                         <div>
-                            <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wide mb-2">Konfirmasi</label>
+                            <label class="block text-xs font-semibold text-taupe uppercase tracking-wide mb-2">Konfirmasi</label>
                             <input type="password" name="confirm_password" required class="input-field" placeholder="Ulangi">
                         </div>
                     </div>
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-gold to-gold-light text-forest py-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all">
+                <button type="submit" class="w-full bg-gradient-to-r from-gold to-gold-light text-taupe-dark py-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all border border-gold/20 hover:border-gold/40">
                     <i class="fas fa-lock mr-2"></i>Ubah Password
                 </button>
             </form>
@@ -222,14 +230,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'delete') {
             <!-- DELETE ACCOUNT -->
             <div class="text-center p-6">
                 <button onclick="confirmDelete()" 
-                        class="px-8 py-4 border-2 border-red-300 text-red-600 bg-red-50 rounded-xl font-bold hover:bg-red-100 hover:scale-[1.02] transition-all shadow-md">
+                        class="px-8 py-4 border-2 border-red-300/50 text-red-600 bg-red-50/80 rounded-xl font-bold hover:bg-red-100/80 hover:scale-[1.02] transition-all shadow-md">
                     <i class="fas fa-user-slash mr-2"></i>Hapus Akun
                 </button>
             </div>
 
             <!-- BACK BUTTON -->
             <div class="text-center">
-                <a href="index.php" class="inline-flex items-center gap-2 text-sm text-gray-600 hover:text-forest font-medium transition-colors">
+                <a href="index.php" class="inline-flex items-center gap-2 text-sm text-taupe hover:text-taupe-dark font-medium transition-colors hover:underline">
                     <i class="fas fa-chevron-left"></i>Kembali
                 </a>
             </div>

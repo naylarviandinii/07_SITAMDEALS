@@ -64,28 +64,52 @@ $total = 0;
     <title>Invoice #<?= $id ?> - SiTamDeals</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@900&family=DM+Sans:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { playfair: ['Playfair Display', 'serif'], dm: ['DM Sans', 'sans-serif'] },
+                    colors: {
+                        // Tema CREAM dengan text kontras tinggi
+                        cream: '#fefbf3',           // Background utama
+                        'cream-dark': '#f5f0e6',    
+                        'cream-light': '#fffdf9',   
+                        taupe: '#8b7b5f',           // TEXT UTAMA ⭐ (mudah dibaca)
+                        'taupe-dark': '#6b5a42',    // Heading
+                        'taupe-light': '#a89c7e',   
+                        beige: '#d9c9a2',           
+                        'beige-dark': '#b8a884',    
+                        gold: '#d4af37',            
+                        'gold-light': '#e8c968'     
+                    }
+                }
+            }
+        }
+    </script>
+    
     <style>
         body { font-family: 'DM Sans', sans-serif; }
         .font-playfair { font-family: 'Playfair Display', serif; }
     </style>
 </head>
-<body class="bg-[#f7f4ee] min-h-screen flex items-center justify-center p-6">
+<body class="bg-cream min-h-screen flex items-center justify-center p-6">
 
-    <div class="max-w-md w-full bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100">
-        <div class="bg-[#1e3a2f] p-8 text-center text-white">
-            <h1 class="font-playfair text-2xl text-[#c9a84c] mb-1">SiTamDeals</h1>
-            <p class="text-[10px] uppercase tracking-[3px] opacity-60 font-bold">Bukti Pembelian Sah</p>
+    <div class="max-w-md w-full bg-cream-light rounded-3xl shadow-2xl overflow-hidden border border-beige/50">
+        <div class="bg-taupe-dark p-8 text-center text-cream">
+            <h1 class="font-playfair text-2xl text-gold mb-1">SiTam<span class="text-gold-light">Deals</span></h1>
+            <p class="text-[10px] uppercase tracking-[3px] opacity-80 font-bold">Bukti Pembelian Sah</p>
         </div>
 
         <div class="p-8">
-            <div class="flex justify-between border-b border-dashed border-gray-200 pb-4 mb-6">
+            <div class="flex justify-between border-b border-dashed border-beige/30 pb-4 mb-6">
                 <div>
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Nama Pelanggan</p>
-                    <p class="font-bold text-gray-800 text-base"><?= htmlspecialchars($order['customer']) ?></p>
+                    <p class="text-[10px] font-bold text-taupe-light/80 uppercase tracking-wider">Nama Pelanggan</p>
+                    <p class="font-bold text-taupe-dark text-base"><?= htmlspecialchars($order['customer']) ?></p>
                 </div>
                 <div class="text-right">
-                    <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Nomor Order</p>
-                    <p class="font-mono font-bold text-gray-800">#STD-<?= str_pad($id, 4, '0', STR_PAD_LEFT) ?></p>
+                    <p class="text-[10px] font-bold text-taupe-light/80 uppercase tracking-wider">Nomor Order</p>
+                    <p class="font-mono font-bold text-taupe-dark">#STD-<?= str_pad($id, 4, '0', STR_PAD_LEFT) ?></p>
                 </div>
             </div>
 
@@ -96,34 +120,34 @@ $total = 0;
                 ?>
                 <div class="flex justify-between items-start">
                     <div class="flex-1">
-                        <p class="font-bold text-gray-800 leading-tight"><?= htmlspecialchars($row['name']) ?></p>
-                        <p class="text-[11px] text-gray-400 mt-0.5">Grade <?= $row['grade'] ?> &nbsp;•&nbsp; <?= $row['qty'] ?> Unit</p>
+                        <p class="font-bold text-taupe-dark leading-tight"><?= htmlspecialchars($row['name']) ?></p>
+                        <p class="text-[11px] text-taupe/70 mt-0.5">Grade <?= $row['grade'] ?> &nbsp;•&nbsp; <?= $row['qty'] ?> Unit</p>
                     </div>
                     <div class="text-right">
-                        <p class="font-bold text-gray-800 text-sm">Rp <?= number_format($subtotal, 0, ',', '.') ?></p>
+                        <p class="font-bold text-taupe-dark text-sm">Rp <?= number_format($subtotal, 0, ',', '.') ?></p>
                     </div>
                 </div>
                 <?php endwhile; ?>
             </div>
 
-            <div class="bg-gray-50 rounded-2xl p-5 mb-8 flex justify-between items-center border border-gray-100">
-                <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Total Bayar</span>
-                <span class="text-2xl font-black text-[#4a8c64]">Rp <?= number_format($total, 0, ',', '.') ?></span>
+            <div class="bg-cream-dark rounded-2xl p-5 mb-8 flex justify-between items-center border border-beige/30">
+                <span class="text-xs font-bold text-taupe uppercase tracking-widest">Total Bayar</span>
+                <span class="text-2xl font-black text-taupe-dark">Rp <?= number_format($total, 0, ',', '.') ?></span>
             </div>
 
             <div class="text-center">
-                <div class="inline-flex items-center gap-2 bg-emerald-50 text-emerald-700 text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6">
+                <div class="inline-flex items-center gap-2 bg-gold/10 text-gold text-[10px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest mb-6 border border-gold/20">
                     <i class="fas fa-check-circle"></i> Pesanan Berhasil
                 </div>
-                <p class="text-gray-400 text-[10px] leading-relaxed">
+                <p class="text-taupe/60 text-[10px] leading-relaxed">
                     Pesanan Anda telah masuk ke dalam sistem kami.<br>
-                    Silakan ambil barang Anda di area <strong>Tambah Jaya</strong>.
+                    Silakan ambil barang Anda di area <strong class="text-taupe-dark">Tambah Jaya</strong>.
                 </p>
             </div>
         </div>
 
         <div class="p-8 pt-0">
-            <a href="index.php" class="block w-full bg-[#c9a84c] text-[#1e3a2f] font-bold py-4 rounded-2xl hover:bg-[#b08f3a] transition-all text-center text-sm shadow-lg shadow-gold/20">
+            <a href="index.php" class="block w-full bg-gradient-to-r from-gold to-gold-light text-taupe-dark font-bold py-4 rounded-2xl hover:from-gold hover:to-beige transition-all text-center text-sm shadow-lg hover:shadow-xl border border-gold/20 hover:border-gold/40">
                 Kembali ke Beranda
             </a>
         </div>

@@ -72,17 +72,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: {
-            playfair:['"Playfair Display"','serif'],
-            dm:['"DM Sans"','sans-serif']
-          },
+          fontFamily: { playfair: ['Playfair Display', 'serif'], dm: ['DM Sans', 'sans-serif'] },
           colors: {
-            forest:'#1e3a2f', moss:'#2e5c42', sage:'#4a8c64',
-            leaf:'#72b88a', mint:'#b8d9c5', cream:'#f7f4ee',
-            gold:'#c9a84c', 'gold-light':'#e8c96a', dark:'#111a15'
+            // Tema cream yang lebih soft dengan kontras tinggi untuk text
+            cream: '#fefbf3',           // Cream sangat terang (background utama)
+            'cream-dark': '#f5f0e6',    // Cream sedikit lebih gelap
+            'cream-light': '#fffdf9',   // Cream paling terang
+            taupe: '#8b7b5f',           // Taupe gelap untuk text utama (kontras tinggi)
+            'taupe-dark': '#6b5a42',    // Taupe lebih gelap untuk heading
+            'taupe-light': '#a89c7e',   // Taupe terang untuk accent
+            beige: '#d9c9a2',           // Beige untuk border/hover
+            'beige-dark': '#b8a884',    // Beige lebih gelap
+            gold: '#d4af37',            // Gold untuk highlight
+            'gold-light': '#e8c968'     // Gold terang
           },
           keyframes: {
-            fadeUp:{ from:{opacity:'0',transform:'translateY(20px)'}, to:{opacity:'1',transform:'translateY(0)'} }
+            fadeUp:{ from:{opacity:'0',transform:'translateY(30px)'}, to:{opacity:'1',transform:'translateY(0)'} }
           },
           animation: {
             'fade-up':'fadeUp 0.6s ease both',
@@ -101,27 +106,31 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     .input-field {
       width:100%;
       padding:14px 18px;
-      border:1.5px solid #e2e8e4;
+      border:1.5px solid #d9c9a2;
       border-radius:14px;
-      background:#f8faf9;
+      background:#fffdf9;
       outline:none;
       transition:all 0.25s;
       font-size:0.9rem;
+      color:#6b5a42;
     }
     .input-field:focus {
-      border-color:#4a8c64;
-      box-shadow:0 0 0 4px rgba(74,140,100,0.1);
-      background:#fff;
+      border-color:#d4af37;
+      box-shadow:0 0 0 4px rgba(212,175,55,0.15);
+      background:#fffdf9;
+    }
+    .input-field::placeholder {
+      color:#a89c7e;
     }
   </style>
 </head>
 
-<body class="h-full bg-[#1a3529] overflow-hidden">
+<body class="h-full bg-cream overflow-hidden">
 
 <div class="min-h-screen flex">
 
   <!-- LEFT PANEL -->
-  <div class="hidden lg:flex flex-col justify-between w-[42%] p-14 text-white">
+  <div class="hidden lg:flex flex-col justify-between w-[42%] p-14 text-taupe-dark bg-cream-dark">
     <div class="animate-fade-up">
       <div class="text-2xl font-black font-playfair">
         SiTam<span class="text-gold">Deals</span>
@@ -132,34 +141,34 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       <h1 class="text-5xl font-black font-playfair leading-tight">
         Belanja Lebih <span class="text-gold">Mudah</span>
       </h1>
-      <p class="text-white/50 mt-4 text-sm max-w-sm">
+      <p class="text-taupe mt-4 text-sm max-w-sm">
         Platform untuk mengelola transaksi dan penjualan dengan cepat dan efisien.
       </p>
     </div>
 
-    <div class="text-white/30 text-xs">
+    <div class="text-taupe-light text-xs">
       © 2026 SiTamDeals
     </div>
   </div>
 
   <!-- RIGHT PANEL -->
-  <div class="flex-1 flex items-center justify-center p-6">
+  <div class="flex-1 flex items-center justify-center p-6 bg-cream-light">
 
     <div class="w-full max-w-md">
 
-      <div class="bg-white rounded-3xl shadow-2xl p-10 animate-fade-up">
+      <div class="bg-cream rounded-3xl shadow-2xl p-10 border border-beige animate-fade-up">
 
         <!-- HEADER -->
-        <h1 class="font-playfair text-3xl font-black text-[#1e3a2f]">
+        <h1 class="font-playfair text-3xl font-black text-taupe-dark">
           Welcome Back 👋
         </h1>
-        <p class="text-gray-400 text-sm mt-1 mb-6">
+        <p class="text-taupe text-sm mt-1 mb-6">
           Login untuk melanjutkan
         </p>
 
         <!-- ERROR -->
         <?php if ($error): ?>
-          <div class="bg-red-50 border border-red-200 text-red-600 text-sm p-3 rounded-xl mb-4 text-center">
+          <div class="bg-[#fef2f2] border border-[#fecaca] text-taupe-dark text-sm p-3 rounded-xl mb-4 text-center">
             <?= $error ?>
           </div>
         <?php endif; ?>
@@ -168,26 +177,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         <form method="POST" class="space-y-4">
 
           <div>
-            <label class="text-xs font-bold text-[#1e3a2f]/70 uppercase">Email</label>
+            <label class="text-xs font-bold text-taupe uppercase">Email</label>
             <input type="email" name="email" class="input-field mt-2" placeholder="contoh@email.com" required>
           </div>
 
           <div>
-            <label class="text-xs font-bold text-[#1e3a2f]/70 uppercase">Password</label>
+            <label class="text-xs font-bold text-taupe uppercase">Password</label>
             <input type="password" name="password" class="input-field mt-2" placeholder="••••••••" required>
           </div>
 
           <button type="submit"
-            class="w-full py-4 rounded-xl text-white font-bold bg-gradient-to-r from-[#1e3a2f] to-[#2e5c42] hover:scale-[1.02] transition">
+            class="w-full py-4 rounded-xl text-cream font-bold bg-gradient-to-r from-taupe-dark via-taupe to-beige-dark hover:scale-[1.02] transition-all duration-200 hover:shadow-lg hover:shadow-gold/20">
             Login →
           </button>
 
         </form>
 
         <!-- FOOTER -->
-        <p class="text-center text-sm text-gray-400 mt-6">
+        <p class="text-center text-sm text-taupe mt-6">
           Belum punya akun?
-          <a href="register.php" class="text-[#1e3a2f] font-bold">Daftar</a>
+          <a href="register.php" class="text-taupe-dark font-bold hover:text-gold transition-colors">Daftar</a>
         </p>
 
       </div>
