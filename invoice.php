@@ -23,6 +23,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['product_id'])) {
     // 2. Masukkan Item
     $conn->query("INSERT INTO order_items (order_id, product_id, grade, price, qty) 
                   VALUES ('$order_id', '$product_id', '$grade', '$unit_price', '$qty')");
+
+    // 3. Kurangi Stok sesuai Grade
+    $stock_col = "stock_" . $grade; // stock_A / stock_B / stock_C
+    $conn->query("UPDATE products 
+                  SET $stock_col = $stock_col - $qty 
+                  WHERE product_id = $product_id 
+                  AND $stock_col >= $qty");
+
+    if ($conn->affected_rows == 0) {
+        die("Gagal: Stok tidak mencukupi atau produk tidak ditemukan.");
+    }
     
     // Redirect ke diri sendiri (GET) biar tidak duplikat datanya kalau di-refresh
     header("Location: invoice.php?id=" . $order_id);
@@ -104,11 +115,11 @@ $total = 0;
         <div class="p-8">
             <div class="flex justify-between border-b border-dashed border-beige/30 pb-4 mb-6">
                 <div>
-                    <p class="text-[10px] font-bold text-taupe-light/80 uppercase tracking-wider">Nama Pelanggan</p>
+                    <p class="text-[10px] font-bold text-taupe-light uppercase tracking-wider">Nama Pelanggan</p>
                     <p class="font-bold text-taupe-dark text-base"><?= htmlspecialchars($order['customer']) ?></p>
                 </div>
                 <div class="text-right">
-                    <p class="text-[10px] font-bold text-taupe-light/80 uppercase tracking-wider">Nomor Order</p>
+                    <p class="text-[10px] font-bold text-taupe-light uppercase tracking-wider">Nomor Order</p>
                     <p class="font-mono font-bold text-taupe-dark">#STD-<?= str_pad($id, 4, '0', STR_PAD_LEFT) ?></p>
                 </div>
             </div>
@@ -141,7 +152,7 @@ $total = 0;
                 </div>
                 <p class="text-taupe/60 text-[10px] leading-relaxed">
                     Pesanan Anda telah masuk ke dalam sistem kami.<br>
-                    Silakan ambil barang Anda di area <strong class="text-taupe-dark">Tambah Jaya</strong>.
+                    Silakan ambil barang Anda di area <strong class="text-taupe-dark font-bold">Tambah Jaya</strong>.
                 </p>
             </div>
         </div>
